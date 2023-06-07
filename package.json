@@ -1,0 +1,22 @@
+{
+  "name": "@hyas/inline-svg",
+  "description": "Hyas inline SVG",
+  "version": "1.0.0",
+  "browserslist": [
+    "defaults"
+  ],
+  "repository": "https://github.com/gethyas/inline-svg",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean:install": "shx rm -rf package-lock.json node_modules",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "version": "auto-changelog -p && git add CHANGELOG.md"
+  },
+  "devDependencies": {
+    "auto-changelog": "^2.4.0",
+    "shx": "^0.3.4"
+  }
+}
