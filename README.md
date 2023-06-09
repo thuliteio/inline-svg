@@ -39,7 +39,7 @@ Add mounts to `./config/_default/module.toml`:
   target = "assets/svgs"
 
 [[mounts]]
-  source = "node_modules/@hyas/inline-svg-dev/layouts"
+  source = "node_modules/@hyas/inline-svg/layouts"
   target = "layouts"
 
 [[mounts]]
