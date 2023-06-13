@@ -23,6 +23,7 @@
 
 {{ $markup := "" }}
 {{ with $svg }}
+  {{ $svg = $svg | minify }}
   {{ $markup = $svg.Content }}
 
   {{ $classes = $classes | append "svg-inline" }}
