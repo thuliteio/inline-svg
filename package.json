@@ -1,7 +1,7 @@
 {
   "name": "@hyas/inline-svg",
   "description": "Hyas inline SVG",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "browserslist": [
     "defaults"
   ],
