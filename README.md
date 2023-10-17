@@ -47,7 +47,7 @@ Add mounts to `./config/_default/module.toml`:
   target = "layouts"
 ```
 
-Set the icon set directory in `./config/_default/params.toml`:
+Set the default icon set directory in `./config/_default/params.toml`:
 
 ```toml
 # Inline SVG (@hyas/inline-svg)
