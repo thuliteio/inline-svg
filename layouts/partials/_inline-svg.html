@@ -15,7 +15,7 @@
 {{ if and (not $svg) $srcIsString }}
   {{ $srcName := .src }}
   {{ $classes = slice $srcName }}
-  {{ $iconSetDir := site.Params.inlineSvg.iconSetDir | default "tabler-icons" }}
+  {{ $iconSetDir := site.Params.inline_svg.iconSetDir | default "tabler-icons" }}
 
   {{ $path := printf "svgs/%s/%s.svg" $iconSetDir $srcName }}
   {{ $svg = resources.Get $path }}

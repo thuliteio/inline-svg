@@ -51,7 +51,7 @@ Set the default icon set directory in `./config/_default/params.toml`:
 
 ```toml
 # Inline SVG (@hyas/inline-svg)
-[inlineSvg]
+[inline_svg]
   iconSetDir = "tabler-icons" # "tabler-icons" (default)
 ```
 
