@@ -1,0 +1,3 @@
+# Inline SVG (@hyas/inline-svg)
+[inlineSvg]
+  iconSetDir = "tabler-icons" # "tabler-icons" (default)

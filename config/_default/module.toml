@@ -7,10 +7,6 @@
   target = "assets/svgs/tabler-icons"
 
 [[mounts]]
-  source = "assets/svgs"
-  target = "assets/svgs"
-
-[[mounts]]
   source = "node_modules/@hyas/inline-svg/layouts"
   target = "layouts"
 

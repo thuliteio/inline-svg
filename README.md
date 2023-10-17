@@ -10,7 +10,7 @@ Official inline SVG integration for Hyas.
 ## Installation
 
 ```bash
-npm i -D @hyas/inline-svg
+npm i @hyas/inline-svg
 ```
 
 ### Icon set
@@ -18,7 +18,7 @@ npm i -D @hyas/inline-svg
 Optionally, install one or more icon sets, e.g., [Tabler Icons](https://tabler-icons.io/) and [Bootstrap Icons](https://icons.getbootstrap.com/):
 
 ```bash
-npm i -D @tabler/icons bootstrap-icons
+npm i @tabler/icons bootstrap-icons
 ```
 
 ## Setup
@@ -35,10 +35,6 @@ Add mounts to `./config/_default/module.toml`:
   target = "assets/svgs/tabler-icons"
 
 [[mounts]]
-  source = "assets/svgs"
-  target = "assets/svgs"
-
-[[mounts]]
   source = "node_modules/@hyas/inline-svg/layouts"
   target = "layouts"
 
@@ -51,11 +47,12 @@ Add mounts to `./config/_default/module.toml`:
   target = "layouts"
 ```
 
-Set the default icon set directory `icon_set_dir` in `./config/_default/params.yml`:
+Set the icon set directory in `./config/_default/params.toml`:
 
-```yml
-inline_svg:
-  icon_set_dir: "bootstrap-icons" # null (default), tabler-icons, or bootstrap-icons
+```toml
+# Inline SVG (@hyas/inline-svg)
+[inlineSvg]
+  iconSetDir = "tabler-icons" # "tabler-icons" (default)
 ```
 
 ## How to use
