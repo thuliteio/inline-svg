@@ -1,0 +1,7 @@
+{{- /* Trigger evaluation of shortcodes */ -}}
+{{- $noop := .WordCount -}}
+{{- /* Include extracted inline SVG styles as proper resources */ -}}
+{{- with .Store.Get "inlineStyles" -}}
+  {{- $css := delimit . "\n" | resources.FromString "inline-svg.css" | resources.Fingerprint "sha512" -}}
+  <link rel="stylesheet" href="{{ $css.Permalink | relURL }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{- end }}

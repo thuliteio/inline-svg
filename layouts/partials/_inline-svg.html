@@ -75,6 +75,14 @@
   {{ end }}
   {{ $replacement = print "$1 " (delimit $attributes " ") "$2" }}
   {{ $markup = replaceRE $patternSvgTag $replacement $markup 1 }}
+
+  {{/* Extract inline styles and write them to page store to be included in head */}}
+  {{ $inlineStyles := slice }}
+  {{ range (findRE `<style(\s+[^>]*)?>[\s\S]*?</style>` $markup) }}
+    {{ $inlineStyles = append (replaceRE `(^<style(\s+[^>]*)?>|</style>$)` "" .) $inlineStyles }}
+    {{ $markup = replace $markup . "" 1 }}
+  {{ end }}
+  {{ page.Store.Add "inlineStyles" $inlineStyles }}
 {{ else }}
   {{ warnf "Could not find src '%s'." .src }}
 {{ end }}
