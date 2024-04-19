@@ -2,64 +2,11 @@
 
 Official inline SVG integration for Hyas.
 
-## Status
-
-[![npm (scoped)](https://img.shields.io/npm/v/@hyas/inline-svg?style=flat-square)](https://www.npmjs.com/package/@hyas/inline-svg)
-
-
-## Installation
-
-```bash
-npm i @hyas/inline-svg
-```
-
-### Icon set
-
-Optionally, install one or more icon sets, e.g., [Tabler Icons](https://tabler-icons.io/) and [Bootstrap Icons](https://icons.getbootstrap.com/):
-
-```bash
-npm i @tabler/icons bootstrap-icons
-```
-
-## Setup
-
-Add mounts to `./config/_default/module.toml`:
-
-```toml
-[[mounts]]
-  source = "node_modules/bootstrap-icons/icons"
-  target = "assets/svgs/bootstrap-icons"
-
-[[mounts]]
-  source = "node_modules/@tabler/icons/icons"
-  target = "assets/svgs/tabler-icons"
-
-[[mounts]]
-  source = "node_modules/@hyas/inline-svg/layouts"
-  target = "layouts"
-
-[[mounts]]
-  source = "assets"
-  target = "assets"
-
-[[mounts]]
-  source = "layouts"
-  target = "layouts"
-```
-
-Set the default icon set directory in `./config/_default/params.toml`:
-
-```toml
-# Inline SVG (@hyas/inline-svg)
-[inline_svg]
-  iconSetDir = "tabler-icons" # "tabler-icons" (default)
-```
-
-## How to use
+## Getting Started
 
 See the Hyas documentation:
 
-- [Inline SVG](https://docs.gethyas.com/guides/integrations-guide/inline-svg/)
+- [Inline SVG](https://docs.gethyas.com/guides/integrations/inline-svg/)
 
 ## Credits
 
