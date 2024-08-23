@@ -1,12 +1,12 @@
-# Hyas inline SVG
+# Thulite inline SVG
 
-Official inline SVG integration for Hyas.
+Official inline SVG integration for Thulite.
 
 ## Getting Started
 
-See the Hyas documentation:
+See the Thulite documentation:
 
-- [Inline SVG](https://docs.gethyas.com/guides/integrations/inline-svg/)
+- [Inline SVG](https://docs.thulite.io/guides/integrations/inline-svg/)
 
 ## Credits
 
