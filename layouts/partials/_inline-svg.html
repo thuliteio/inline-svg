@@ -1,15 +1,16 @@
 {{/* .src could also be a resource */}}
 {{ $svg := .src }}
 {{ $srcIsString := eq (printf "%T" .src) "string" }}
-{{ $classes := slice }}
+{{ $path := "" }}
 {{ if $srcIsString }}
-  {{ $path := strings.TrimSuffix ".svg" .src }}
+  {{ $path = strings.TrimSuffix ".svg" .src }}
   {{ $svg = resources.Get (printf "%s.svg" $path) }}
-  {{ $classes = slice (path.Base $path) }}
 {{ else }}
-  {{ $path := strings.TrimSuffix ".svg" .src.Name }}
-  {{ $classes = slice (path.Base $path) }}
+  {{ $path = strings.TrimSuffix ".svg" .src.Name }}
 {{ end }}
+{{ $id := .id | default (print "svg-" (path.Base $path)) }}
+{{ $role := .role | default "img" }}
+{{ $classes := slice }}
 
 {{/* If src doesn't exist in the site, fallback to icon set */}}
 {{ if and (not $svg) $srcIsString }}
@@ -23,7 +24,6 @@
 
 {{ $markup := "" }}
 {{ with $svg }}
-  {{ $svg = $svg | minify }}
   {{ $markup = $svg.Content }}
 
   {{ $classes = $classes | append "svg-inline" }}
@@ -34,29 +34,50 @@
   {{ range $k, $v := $ }}{{ $s.Set $k $v }}{{ end }}
   {{ $s.Delete "src" }}
   {{ $s.Delete "title" }}
+  {{ $s.Set "id" $id }}
+  {{ $s.Set "role" $role }}
   {{ $s.Set "class" (delimit $classes " ") }}
+  {{ $attributes := slice }}
 
-  {{/* Override markup with passed title */}}
+  {{/* Assemble markup for passed title */}}
+  {{ $patternSvgTagOpen := `<svg(?:\s+[^>]*)?` }}
+  {{ $patternSvgTag := print "(" $patternSvgTagOpen ")(>)" }}
+  {{ $markupTitle := "" }}
   {{ with $.title }}
-    {{ $markup = $markup | replaceRE "<title.*</title>" "" }}
-    {{ $markup = replace $markup "</svg>" (printf "<title>%s</title>" .) }}
+    {{ $titleId := print "title-" $id }}
+    {{ $markupTitle = printf `<title id="%s">%s</title>` $titleId . }}
+    {{ $ariaLabelledby := $.ariaLabelledby | default $titleId }}
+    {{ $attributes = $attributes | append (printf `aria-labelledby="%s"` $ariaLabelledby) }}
+    {{/* Remove possibly existing title tag (that immediately follows the svg tag) from SVG */}}
+    {{ $markup = replaceRE (print $patternSvgTag `\s*<title[\s>][\s\S]*?(?:</title>)`) "$1$2" $markup 1 }}
   {{ end }}
+
+  {{/* Assemble markup for passed desc */}}
+  {{ $markupDesc := "" }}
+  {{ with $.desc }}
+    {{ $descId := print "desc-" $id }}
+    {{ $markupDesc = printf `<desc id="%s">%s</desc>` $descId . }}
+    {{ $ariaDescribedby := $.ariaDescribedby | default $descId }}
+    {{ $attributes = $attributes | append (printf `aria-describedby="%s"` $ariaDescribedby) }}
+    {{/* Remove possibly existing desc tag (that immediately follows the svg tag) from SVG */}}
+    {{ $markup = replaceRE (print $patternSvgTag `\s*<desc[\s>][\s\S]*?(?:</desc>)`) "$1$2" $markup 1 }}
+  {{ end }}
+
+  {{/* Add title and desc markup to SVG */}}
+  {{ $replacement := print "$1$2" $markupTitle $markupDesc }}
+  {{ $markup = replaceRE $patternSvgTag $replacement $markup 1 }}
 
   {{/* Override markup with passed attributes */}}
-  {{ $attributes := slice }}
   {{ range $k, $v := $s.Values }}
-    {{ $matches := findRE (printf `%s=".*?"` $k) $markup 1 }}
-    {{ if len $matches }}
-      {{ $markup = replace $markup (index $matches 0) "" 1 }}
-    {{ end }}
+    {{ $pattern := printf `(%s) %s="[\s\S]*?"` $patternSvgTagOpen $k }}
+    {{ $markup = replaceRE $pattern "$1" $markup 1 }}
     {{ $attributes = $attributes | append (printf `%s="%s"` $k $v) }}
   {{ end }}
-
-  {{ $pattern := `<svg([\s\S]*)?>` }}
-  {{ $replacement := printf `<svg %s ${1}>` (delimit $attributes " ") }}
-  {{ $markup = replaceRE $pattern $replacement $markup 1 | safeHTML }}
+  {{ $replacement = print "$1 " (delimit $attributes " ") "$2" }}
+  {{ $markup = replaceRE $patternSvgTag $replacement $markup 1 }}
 {{ else }}
   {{ warnf "Could not find src '%s'." .src }}
 {{ end }}
 
+{{ $markup = safeHTML $markup }}
 {{ return $markup }}
