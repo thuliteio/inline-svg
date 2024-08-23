@@ -1,4 +1,4 @@
-# @hyas/inline-svg
+# @thulite/inline-svg
 
 ## 1.1.0
 
