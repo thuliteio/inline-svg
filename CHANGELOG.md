@@ -1,5 +1,11 @@
 # @thulite/inline-svg
 
+## 1.2.1
+
+### Patch Changes
+
+- [#8](https://github.com/thuliteio/inline-svg/pull/8) [`66522f1`](https://github.com/thuliteio/inline-svg/commit/66522f19ad22841c02c75dd9bef3c0be5f1503a1) Thanks [@h-enk](https://github.com/h-enk)! - Update for new template system in Hugo v0.146.0
+
 ## 1.2.0
 
 ### Minor Changes
