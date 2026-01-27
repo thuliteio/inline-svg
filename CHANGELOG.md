@@ -1,5 +1,11 @@
 # @thulite/inline-svg
 
+## 1.2.2
+
+### Patch Changes
+
+- [#10](https://github.com/thuliteio/inline-svg/pull/10) [`81125dc`](https://github.com/thuliteio/inline-svg/commit/81125dc1eaf6c14cbbc34e55fa1e7d525417129f) Thanks [@h-enk](https://github.com/h-enk)! - Bump dependencies to their latest versions
+
 ## 1.2.1
 
 ### Patch Changes
